@@ -1,5 +1,9 @@
 # HeroDB by Death Legion Team
 
+![HeroDB Logo](https://img.shields.io/badge/HeroDB-DeathLegion-blue?style=for-the-badge)
+![C++](https://img.shields.io/badge/C++-17-red?style=for-the-badge&logo=c%2B%2B)
+![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
+
 HeroDB is a high-performance, open-source NoSQL database built from scratch in C++. It features a document-oriented storage model, a dedicated shell, and a sharding router for horizontal scaling.
 
 **All others are better than nothing, but HeroDB is better than everything.**
@@ -9,6 +13,7 @@ HeroDB is a high-performance, open-source NoSQL database built from scratch in C
 - **High Performance**: Written in C++ for maximum speed.
 - **Scalability**: Sharding router distributes data across multiple server instances.
 - **Simple Shell**: Interactive CLI for database management.
+- **SDKs**: Official SDKs for [JavaScript](https://www.npmjs.com/package/herodb-sdk) and [Python](https://pypi.org/project/herodb-sdk/).
 
 ## Building HeroDB
 
@@ -21,38 +26,41 @@ cmake ..
 make
 ```
 
-This will produce three binaries:
-- `herodb-server`: The core database server.
-- `herodb-shell`: The interactive command-line interface.
-- `herodb-router`: The sharding and routing service.
-
-## Running HeroDB Locally
+## Quick Start
 
 ### 1. Start Database Servers
-Start one or more server instances on different ports:
 ```bash
 ./build/herodb-server 8081 &
 ./build/herodb-server 8082 &
 ```
 
 ### 2. Start the Sharding Router
-Point the router to your server instances:
 ```bash
 ./build/herodb-router 8080 127.0.0.1:8081 127.0.0.1:8082
 ```
 
 ### 3. Connect with the Shell
-Connect to the router (or directly to a server):
 ```bash
 ./build/herodb-shell 127.0.0.1 8080
 ```
 
-## Shell Commands
-- `insert {"_id": "1", "name": "Hero"}`: Insert a document.
-- `find 1`: Retrieve a document by ID.
-- `find`: List all documents (on the connected instance/shard).
-- `delete 1`: Remove a document.
-- `exit`: Close the shell.
+## SDK Usage
+
+### JavaScript
+```javascript
+const HeroDBClient = require('herodb-sdk');
+const client = new HeroDBClient('127.0.0.1', 8080);
+await client.connect();
+await client.insert({ _id: '1', name: 'Hero' });
+```
+
+### Python
+```python
+from herodb import HeroDBClient
+client = HeroDBClient('127.0.0.1', 8080)
+client.connect()
+client.insert({'_id': '1', 'name': 'Hero'})
+```
 
 ---
 Developed with passion by the **Death Legion Team**.
